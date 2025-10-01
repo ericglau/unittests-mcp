@@ -1,0 +1,32 @@
+{
+  "name": "@ericglau/unittests-mcp",
+  "version": "0.0.1-alpha.0",
+  "description": "Unit Tests MCP Server",
+  "license": "AGPL-3.0-only",
+  "repository": "https://github.com/ericglau/unittests-mcp",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "contracts-mcp": "dist/cli.js"
+  },
+  "ts:main": "src/index.ts",
+  "files": [
+    "LICENSE",
+    "/dist",
+    "/src",
+    "!**/*.test.*"
+  ],
+  "scripts": {
+    "prepare": "tsc",
+    "test": "ava"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.11.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0",
+    "ava": "^6.0.0",
+    "ts-node": "^10.4.0"
+  }
+}
