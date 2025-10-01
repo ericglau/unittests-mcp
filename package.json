@@ -18,7 +18,10 @@
   ],
   "scripts": {
     "prepare": "tsc",
-    "test": "ava"
+    "watch": "tsc --watch",
+    "test": "ava",
+    "test:update-snapshots": "ava --update-snapshots",
+    "test:watch": "ava --watch"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.11.1"

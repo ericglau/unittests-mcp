@@ -1,24 +1,27 @@
 # Unit Tests MCP Server
 
-[![NPM Package](https://img.shields.io/npm/v/@ericglau/unittests-mcp)](https://www.npmjs.com/package/@ericglau/unittests-mcp)
-
 A Model Context Protocol (MCP) server that provides prompts for AI agents to generate unit tests.
 
-## Setup
+## Running this project
 
-Configure your MCP client to invoke `npx -y @ericglau/unittests-mcp` using stdio.
+### Install dependencies
+- `npm install`
+
+### Run the development MCP server
+1. From the root directory, run `npm run watch` to compile and watch for changes.
+2. Configure your AI agent's MCP client to run `node <ABSOLUTE_PATH_TO_UNITTESTS_MCP_PROJECT_ROOT>/dist/cli.js` using stdio, replacing `<ABSOLUTE_PATH_TO_UNITTESTS_MCP_PROJECT_ROOT>` with the absolute path to the root directory of this repository.
+3. When you make changes to the MCP server's code, refresh the MCP server in your IDE to pick up the changes.
 
 ### Examples:
 
-#### Cursor/Windsurf/Claude Desktop
-```
+#### Cursor/Windsurf
+```json
 {
   "mcpServers": {
     "unittests-mcp": {
-      "command": "npx",
+      "command": "node",
       "args": [
-        "-y",
-        "@ericglau/unittests-mcp"
+        "<ABSOLUTE_PATH_TO_UNITTESTS_MCP_PROJECT_ROOT>/dist/cli.js"
       ]
     }
   }
@@ -26,20 +29,19 @@ Configure your MCP client to invoke `npx -y @ericglau/unittests-mcp` using stdio
 ```
 
 #### Claude Code
-```
-claude mcp add unittests-mcp -- npx -y @ericglau/unittests-mcp
+```bash
+claude mcp add unittests-mcp -- node <ABSOLUTE_PATH_TO_UNITTESTS_MCP_PROJECT_ROOT>/dist/cli.js
 ```
 
 #### VS Code (GitHub Copilot)
-```
+```json
 {
   "servers": {
     "unittests-mcp": {
       "type": "stdio",
-      "command": "npx",
+      "command": "node",
       "args": [
-        "-y",
-        "@ericglau/unittests-mcp"
+        "<ABSOLUTE_PATH_TO_UNITTESTS_MCP_PROJECT_ROOT>/dist/cli.js"
       ]
     }
   }
