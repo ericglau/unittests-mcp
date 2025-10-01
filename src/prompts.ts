@@ -3,7 +3,7 @@ import { z } from "zod";
 
 export function registerPrompts(server: McpServer) {
   server.registerPrompt(
-    "unit-tests",
+    "basic",
     {
       title: "Unit Tests",
       description: "Generate unit tests for the code at the provided locations.",
