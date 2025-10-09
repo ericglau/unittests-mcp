@@ -167,6 +167,7 @@ Language specifics:
 - typescript/javascript: respect tsconfig/moduleResolution. Detect framework in package.json. Use fake timers instead of real time.
 - rust: use #[cfg(test)] modules, proptest when property tests enabled.
 
+Constrains:
 Analyze only within the given code. Do not invent missing context or external APIs.
 Be deterministic and concise.`,
           },
@@ -245,6 +246,7 @@ suggested tests:
 
 --
 
+Constrains:
 Analyze only within the given code. Do not invent missing context or external APIs.
 Be deterministic and concise. Return only recommendations.
 `,
@@ -317,6 +319,7 @@ Phase 4 - Refinement
 7) Remove redundant or trivial commit noise (e.g., “fix typo”).
 8) Whenever possible cross-reference related issues or tickets automatically (Fixes #1234).
 
+Constrains:
 Analyze only within the given code. Do not invent missing context or external APIs.
 `,
           },
@@ -368,6 +371,7 @@ function(){
 \`
 --
 
+Constrains:
 Analyze only within the given code. Do not invent missing context or external APIs.
 Be deterministic and concise.
 `,
@@ -426,7 +430,7 @@ recommendation: Specific mitigation with code-level detail
 
 --
 
-Guidelines:
+Constrains:
 - Never invent context or external data.
 - Assume principle of least privilege and functional immutability.
 - Focus on verifiable, code-level evidence.
