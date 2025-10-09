@@ -349,7 +349,7 @@ Phase 1 - Parse the diff:
 2) Identify changed or added functions, methods, classes, constants, or modules.
 3) Ignore comment-only or formatting changes.
 
-Phase 2 - Get the changes
+Phase 2 - Analyze the changes:
 4) For each affected symbol:
   - Determine change type: added | modified | deleted | refactored.
   - Detect whether the logic, signature, or control flow changed.
@@ -359,34 +359,35 @@ Phase 2 - Get the changes
   - MEDIUM: modified parameters, return types, or conditionals.
   - LOW: trivial changes with existing adequate coverage.
 6) Flag risky changes (input validation, deserialization, external calls, or others).
-7) Return Markdown structured as follow containing all recommendations listed in each category
+7) Return Markdown structured as follows, containing all recommendations listed in each category:
 
---
-# Tests Recommendations
+---
+# Test Recommendations
 
 ## Risk Level High
 **calculateAPR**
-location: src/lib/math.ts \`calculateAPR\`
-change type: modified
-reason: New branch added for negative interest handling.
-suggested tests:
-- Verify APR calculation for zero and negative interest rates
-- Test error thrown for NaN input
+- location: src/lib/math.ts
+- change type: modified
+- reason: New branch added for negative interest handling.
+- suggested tests:
+  - Verify APR calculation for zero and negative interest rates
+  - Test error thrown for NaN input
 
 ...
 
 ## Risk Level Medium
 ...
 
---
+---
 
-Constrains:
+Constraints:
 - Analyze only within the given code. Do not invent missing context or external APIs.
-Be deterministic and concise. Return only recommendations.
+- Be deterministic and concise.
+- Return only recommendations.
 
 Output:
-- Outup each phase and step you are currently doing
-- Outup markdown recommendations result at the end
+- Output each phase and step you are currently doing
+- Output markdown recommendations result at the end
 - Output detailed error if any error occurs
 `,
           },
