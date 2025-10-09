@@ -11,6 +11,7 @@ export function registerPrompts(server: McpServer) {
   registerMergeRequestDescriptionPrompt(server);
   registerRefactorSuggestionPrompt(server);
   registerSecurityAnalysisPrompt(server);
+  registerDescribeCodebasePrompt(server);
 }
 
 // Example of a basic prompt
@@ -587,6 +588,54 @@ Output:
 - Outup each phase and step you are currently doing
 - Outup recommendations markdown result at the end
 - Output detailed error if any error occurs
+`,
+          },
+        },
+      ],
+    })
+  );
+}
+
+function registerDescribeCodebasePrompt(server: McpServer) {
+  server.registerPrompt(
+    "describe-codebase",
+    {
+      title: "Describe codebase",
+      description:
+        "Describe the code base, including layout, commands and relevant informations",
+      argsSchema: {},
+    },
+    ({}) => ({
+      messages: [
+        {
+          role: "user",
+          content: {
+            type: "text",
+            text: `
+            You are a senior software architect and documentation analyst.
+Given the provided codebase or directory snapshot, generate an onboarding-level summary designed for a new developer joining the team.
+
+Phase 1 - Gather information
+1) Map the overall architecture and core modules explaining their purposes.
+2) Identify and highligh use code pattern, design paradigms (e.g., functional, event-driven, modular, object-oriented) and practices amongst the codebase
+3) Identify main dependencies relevant to further development
+4) Identify and explain commands that can be run to interact with the codebase
+5) Identify the main data flows, state management patterns, and functional dependencies.
+6) Describe how security, configuration, and environment management are handled.
+7) Outline major entry points (APIs, CLI, smart contracts, services) and their responsibilities.
+8) Identify key abstractions, reusable utilities, and integration boundaries.
+9) Point out any complex or critical paths that require extra caution.
+10) Recommend areas of the code that a new developer should study first to become productive.
+
+Output:
+- Outup each phase and step you are currently doing
+- Output detailed error if any error occurs
+
+Constrains:
+- Only describe what can be inferred from the provided code.
+- Do not invent undocumented behavior.
+- Describe in clear easy to understand readable format
+- Describe using full sentences adding appropriate level of detail depending on complexity
 `,
           },
         },
