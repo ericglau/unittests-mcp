@@ -341,10 +341,10 @@ Input:
 
 Procedure:
 Phase 1 - Parse the diff:
-1) Get all changes since ${
+1) Get all changes in this branch ${
               diffScope === "branch"
-                ? "creation of branch from target branch"
-                : "latest commit"
+                ? "compared to the default branch since it diverged"
+                : "since the latest previous commit"
             }
 2) Identify changed or added functions, methods, classes, constants, or modules.
 3) Ignore comment-only or formatting changes.
@@ -416,7 +416,7 @@ Create the most complete and professional Git merge request (MR) description pos
 
 Procedure:
 Phase 1 - Fetch and Analyze Changes
-1) Get all changes since creation of branch from the target branch
+1) Get all changes in this branch compared to the default branch since it diverged
 2) Detect modified files and classify them (e.g., source code, configuration, documentation, tests, etc..)
 3) Identify major functional areas affected (e.g., ui, auth, api, contracts, security, etc.)
 4) Detect breaking changes, dependency updates, and any migration requirements.
@@ -439,17 +439,20 @@ Why the change is required, including the issue reference if applicable.
 - [ ] List of major code or feature changes.
 - [ ] Highlight of configuration, deployment, or dependency updates.
 
+## Affected functions
+- List \`functions\` that where added/modified/deleted with brief description
+
 ## Security Impact
-- [ ] Describe any security-sensitive modifications.
-- [ ] Mention mitigations, audits, or validations performed.
+✅ if no security impact ⚠️ if addressed security impact ⛔ if non addressed security impact Brief summary of security impact
+- [ ] List any security-sensitive modifications if any and mitigation strategy if addressed.
 
 ## Testing
 - [ ] List or summarize test coverage and new test cases.
 - [ ] Include steps for manual verification.
 
 ## Backward Compatibility
-- [ ] Note if any breaking changes exist.
-- [ ] Provide migration instructions if needed.
+- ✅ if no breaking changes ⚠️ if breaking changes Note if any breaking changes exist.
+- ✅ if no migration needed ⚠️ if migration needed Provide migration instructions if needed.
 --
 
 Phase 4 - Refinement
@@ -493,7 +496,7 @@ Inspect the repository for code changes and recommend refactors.
 
 Procedure:
 Phase 1 - Get the changes:
-1) Get code changes since branch creation from target
+1) Get all changes in this branch compared to the default branch since it diverged
 2) Scoped from those changes analyze code from modified and added function
 3) Suggest (do not re-write functions) refactor focused on security, maintainability, readability, logic flow, and functional programming purity.
 4) Amongst other refactor suggestion that you think are best include suggestions that increases purity and immutability, reduces side effects and shared state, improves readability and testability, eliminates security anti-patterns,etc...
@@ -551,7 +554,7 @@ Inspect the repository for code changes and recommend changes specializing in se
 
 Procedure:
 Phase 1 - Get the changes:
-1) Get code changes since branch creation from target
+1) Get all changes in this branch compared to the default branch since it diverged
 2) Scoped from those changes analyze code from modified and added code (functions, configuration etc..)
 3) Identify vulnerabilities or risky patterns (e.g., reentrancy, unchecked inputs, unsafe deserialization, race conditions, privilege escalation, misuse of cryptography, etc..).
 4) Detect non-compliance with internal security policies or coding standards.
