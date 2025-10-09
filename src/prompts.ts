@@ -7,10 +7,10 @@ export function registerPrompts(server: McpServer) {
   registerBasicWithTargetPrompt(server);
   registerTestGenerationWorkflowPrompt(server);
   registerCrossLanguageReferencePrompt(server);
-  suggestTestsToAddFromGitDiffPrompt(server);
-  mergeRequestDescriptionPrompt(server);
-  refactorSuggestionPrompt(server);
-  securityAnalysisPrompt(server);
+  registerSuggestTestsToAddFromGitDiffPrompt(server);
+  registerMergeRequestDescriptionPrompt(server);
+  registerRefactorSuggestionPrompt(server);
+  registerSecurityAnalysisPrompt(server);
 }
 
 // Example of a basic prompt
@@ -158,18 +158,20 @@ Phase 6 — Validate statically:
 Phase 7 - Run Test
 17) Run test individually following test framework instructions to run individual tests and make sure they pass
 
-Constraints:
-- No original code file writes, or schema changes.
-- Use meaningful test case name.
-- Prefer pure helpers and table-driven tests.
-
 Language specifics:
 - typescript/javascript: respect tsconfig/moduleResolution. Detect framework in package.json. Use fake timers instead of real time.
 - rust: use #[cfg(test)] modules, proptest when property tests enabled.
 
-Constrains:
-Analyze only within the given code. Do not invent missing context or external APIs.
-Be deterministic and concise.`,
+Constraints:
+- No original code file writes, or schema changes.
+- Use meaningful test case name.
+- Prefer pure helpers and table-driven tests.
+- Analyze only within the given code. Do not invent missing context or external APIs.
+Be deterministic and concise
+
+Output:
+- Outup each phase and step you are currently doing
+- Output detailed error if any error occurs`,
           },
         },
       ],
@@ -308,7 +310,7 @@ Produce results now.`,
   );
 }
 
-function suggestTestsToAddFromGitDiffPrompt(server: McpServer) {
+function registerSuggestTestsToAddFromGitDiffPrompt(server: McpServer) {
   server.registerPrompt(
     "suggest-tests",
     {
@@ -378,8 +380,13 @@ suggested tests:
 --
 
 Constrains:
-Analyze only within the given code. Do not invent missing context or external APIs.
+- Analyze only within the given code. Do not invent missing context or external APIs.
 Be deterministic and concise. Return only recommendations.
+
+Output:
+- Outup each phase and step you are currently doing
+- Outup markdown recommendations result at the end
+- Output detailed error if any error occurs
 `,
           },
         },
@@ -388,7 +395,7 @@ Be deterministic and concise. Return only recommendations.
   );
 }
 
-function mergeRequestDescriptionPrompt(server: McpServer) {
+function registerMergeRequestDescriptionPrompt(server: McpServer) {
   server.registerPrompt(
     "merge-request-description",
     {
@@ -408,7 +415,7 @@ Create the most complete and professional Git merge request (MR) description pos
 
 Procedure:
 Phase 1 - Fetch and Analyze Changes
-1) Retrieve all commits in the current branch that differ from the target branch
+1) Get all changes since creation of branch from the target branch
 2) Detect modified files and classify them (e.g., source code, configuration, documentation, tests, etc..)
 3) Identify major functional areas affected (e.g., ui, auth, api, contracts, security, etc.)
 4) Detect breaking changes, dependency updates, and any migration requirements.
@@ -451,7 +458,12 @@ Phase 4 - Refinement
 8) Whenever possible cross-reference related issues or tickets automatically (Fixes #1234).
 
 Constrains:
-Analyze only within the given code. Do not invent missing context or external APIs.
+- Analyze only within the given code. Do not invent missing context or external APIs.
+
+Output:
+- Outup each phase and step you are currently doing
+- Outup merge request markdown description result at the end
+- Output detailed error if any error occurs
 `,
           },
         },
@@ -460,7 +472,7 @@ Analyze only within the given code. Do not invent missing context or external AP
   );
 }
 
-function refactorSuggestionPrompt(server: McpServer) {
+function registerRefactorSuggestionPrompt(server: McpServer) {
   server.registerPrompt(
     "refactor-suggestions",
     {
@@ -505,6 +517,11 @@ function(){
 Constrains:
 Analyze only within the given code. Do not invent missing context or external APIs.
 Be deterministic and concise.
+
+Output:
+- Outup each phase and step you are currently doing
+- Outup suggestions markdown result at the end
+- Output detailed error if any error occurs
 `,
           },
         },
@@ -513,7 +530,7 @@ Be deterministic and concise.
   );
 }
 
-function securityAnalysisPrompt(server: McpServer) {
+function registerSecurityAnalysisPrompt(server: McpServer) {
   server.registerPrompt(
     "security-analysis",
     {
@@ -565,6 +582,11 @@ Constrains:
 - Never invent context or external data.
 - Assume principle of least privilege and functional immutability.
 - Focus on verifiable, code-level evidence.
+
+Output:
+- Outup each phase and step you are currently doing
+- Outup recommendations markdown result at the end
+- Output detailed error if any error occurs
 `,
           },
         },
